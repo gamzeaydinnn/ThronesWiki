@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <title>Eylul Bölümü</title>
+</head>
+<body>
+
+<h2>Eylul – Model Seçimi</h2>
+
+<select id="modelSelect">
+  <option value="">Bir model seç</option>
+  <option value="opens-1">OpenS 1</option>
+  <option value="opens-2">OpenS 2</option>
+  <option value="opens-3">OpenS 3</option>
+</select>
+
+<p id="result"></p>
+
+<script>
+  const select = document.getElementById("modelSelect");
+  const result = document.getElementById("result");
+
+  select.addEventListener("change", () => {
+    result.textContent = "Seçilen model: " + select.value;
+  });
+</script>
+
+</body>
+</html>
