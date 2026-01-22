@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8">
   <title>Eylul Bölümü</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-<h2>Eylul – Model Seçimi</h2>
+  <h2>Eylul – Model Seçimi</h2>
 
-<select id="modelSelect">
-  <option value="">Bir model seç</option>
-  <option value="opens-1">OpenS 1</option>
-  <option value="opens-2">OpenS 2</option>
-  <option value="opens-3">OpenS 3</option>
-</select>
+  <label>Model:</label>
+  <select id="modelSelect">
+    <option value="">Bir model seç</option>
+    <option value="opus">Opus</option>
+    <option value="sonnet">Sonnet</option>
+    <option value="haiku">Haiku</option>
+  </select>
 
-<p id="result"></p>
+  <label>Prompt:</label>
+  <textarea id="prompt" rows="4" placeholder="Ne sormak istiyorsun?"></textarea>
 
-<script>
-  const select = document.getElementById("modelSelect");
-  const result = document.getElementById("result");
+  <button id="runBtn">Çalıştır</button>
 
-  select.addEventListener("change", () => {
-    result.textContent = "Seçilen model: " + select.value;
-  });
-</script>
+  <h3>Çıktı</h3>
+  <pre id="output"></pre>
 
+  <script src="./app.js"></script>
 </body>
 </html>
