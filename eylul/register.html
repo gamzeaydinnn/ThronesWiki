@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - ThronesWiki</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">ThronesWiki</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="index.html#characters">Karakterler</a></li>
+                <li><a href="index.html#houses">Haneler</a></li>
+                <li><a href="chat.html">Sohbet</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="btn btn-outline">Giriş Yap</a>
+                <a href="register.html" class="btn btn-primary active">Kayıt Ol</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Auth Container -->
+    <main class="auth-container">
+        <div class="auth-card register-card">
+            <div class="auth-header">
+                <div class="auth-icon">👑</div>
+                <h1 class="auth-title">Aramıza Katılın</h1>
+                <p class="auth-subtitle">ThronesWiki topluluğuna üye olun ve Westeros macerasına başlayın</p>
+            </div>
+
+            <form class="auth-form" id="registerForm" th:action="@{/register}" method="post">
+                <!-- Error Message (Thymeleaf) -->
+                <div class="alert alert-error" th:if="${error}">
+                    <span class="alert-icon">⚠️</span>
+                    <span th:text="${error}">Kayıt işlemi başarısız</span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">
+                            <span class="label-icon">📝</span>
+                            Ad
+                        </label>
+                        <input 
+                            type="text" 
+                            id="firstName" 
+                            name="firstName" 
+                            class="form-input" 
+                            placeholder="Adınız"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">
+                            <span class="label-icon">📝</span>
+                            Soyad
+                        </label>
+                        <input 
+                            type="text" 
+                            id="lastName" 
+                            name="lastName" 
+                            class="form-input" 
+                            placeholder="Soyadınız"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <span class="label-icon">👤</span>
+                        Kullanıcı Adı
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input" 
+                        placeholder="Benzersiz bir kullanıcı adı seçin"
+                        required
+                        autocomplete="username"
+                    >
+                    <span class="form-hint">En az 3 karakter olmalıdır</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <span class="label-icon">📧</span>
+                        E-posta
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="ornek@email.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <span class="label-icon">🔒</span>
+                        Şifre
+                    </label>
+                    <div class="password-input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-input" 
+                            placeholder="Güçlü bir şifre oluşturun"
+                            required
+                            autocomplete="new-password"
+                            minlength="6"
+                        >
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            👁️
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                    <span class="form-hint">En az 6 karakter, bir büyük harf ve bir rakam içermelidir</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">
+                        <span class="label-icon">🔐</span>
+                        Şifre Tekrar
+                    </label>
+                    <div class="password-input-wrapper">
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            name="confirmPassword" 
+                            class="form-input" 
+                            placeholder="Şifrenizi tekrar girin"
+                            required
+                            autocomplete="new-password"
+                        >
+                        <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="favoriteHouse" class="form-label">
+                        <span class="label-icon">🏰</span>
+                        Favori Hane (Opsiyonel)
+                    </label>
+                    <select id="favoriteHouse" name="favoriteHouse" class="form-select">
+                        <option value="">Bir hane seçin</option>
+                        <option value="stark">🐺 Stark Hanesi</option>
+                        <option value="lannister">🦁 Lannister Hanesi</option>
+                        <option value="targaryen">🐉 Targaryen Hanesi</option>
+                        <option value="baratheon">🦌 Baratheon Hanesi</option>
+                        <option value="greyjoy">🦑 Greyjoy Hanesi</option>
+                        <option value="tyrell">🌹 Tyrell Hanesi</option>
+                        <option value="martell">☀️ Martell Hanesi</option>
+                        <option value="arryn">🦅 Arryn Hanesi</option>
+                    </select>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" class="checkbox-input" required>
+                        <span class="checkbox-custom"></span>
+                        <span>
+                            <a href="#" class="auth-link">Kullanım Koşulları</a>'nı ve 
+                            <a href="#" class="auth-link">Gizlilik Politikası</a>'nı kabul ediyorum
+                        </span>
+                    </label>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="newsletter" class="checkbox-input">
+                        <span class="checkbox-custom"></span>
+                        Bülten ve güncellemelerden haberdar olmak istiyorum
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span class="btn-icon">👑</span>
+                    Kayıt Ol
+                </button>
+            </form>
+
+            <div class="auth-divider">
+                <span>veya</span>
+            </div>
+
+            <div class="social-login">
+                <button class="btn btn-social btn-google">
+                    <span>🔴</span> Google ile Kayıt
+                </button>
+                <button class="btn btn-social btn-discord">
+                    <span>🟣</span> Discord ile Kayıt
+                </button>
+            </div>
+
+            <div class="auth-footer">
+                <p>Zaten hesabınız var mı? <a href="login.html" class="auth-link">Giriş Yapın</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="auth-footer-bar">
+        <p>© 2026 ThronesWiki. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="./auth.js"></script>
+</body>
+</html>

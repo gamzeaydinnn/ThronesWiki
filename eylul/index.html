@@ -1,30 +1,390 @@
-<!doctype html>
-<html lang="tr">
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <title>Eylul Bölümü</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThronesWiki - Game of Thrones Ansiklopedisi</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">ThronesWiki</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Ana Sayfa</a></li>
+                <li><a href="#characters">Karakterler</a></li>
+                <li><a href="#houses">Haneler</a></li>
+                <li><a href="#locations">Lokasyonlar</a></li>
+                <li><a href="chat.html">Sohbet</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="btn btn-outline">Giriş Yap</a>
+                <a href="register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
 
-  <h2>Eylul – Model Seçimi</h2>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Westeros'un Tüm Sırları</h1>
+            <p class="hero-subtitle">Game of Thrones evrenindeki karakterler, haneler, lokasyonlar ve tarihsel olaylar hakkında kapsamlı bilgi kaynağınız</p>
+            <div class="search-box">
+                <input type="text" placeholder="Karakter, hane veya lokasyon ara..." class="search-input">
+                <button class="search-btn">🔍 Ara</button>
+            </div>
+        </div>
+    </header>
 
-  <label>Model:</label>
-  <select id="modelSelect">
-    <option value="">Bir model seç</option>
-    <option value="opus">Opus</option>
-    <option value="sonnet">Sonnet</option>
-    <option value="haiku">Haiku</option>
-  </select>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Featured Articles Section -->
+        <section class="section featured-section">
+            <h2 class="section-title">
+                <span class="title-icon">📜</span>
+                Öne Çıkan Makaleler
+            </h2>
+            <div class="featured-grid">
+                <article class="featured-card main-featured">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800');">
+                        <span class="card-badge">Popüler</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Karakter</span>
+                        <h3 class="card-title">Jon Snow: Kuzey'in Kralı</h3>
+                        <p class="card-excerpt">Ned Stark'ın piç oğlu olarak bilinen Jon Snow'un gerçek kimliği ve Demir Taht'a olan hakkı...</p>
+                        <div class="card-meta">
+                            <span>📅 15 Ocak 2026</span>
+                            <span>👁️ 2.4K görüntülenme</span>
+                        </div>
+                        <a href="#" class="card-link">Devamını Oku →</a>
+                    </div>
+                </article>
+                
+                <article class="featured-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600');">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Hane</span>
+                        <h3 class="card-title">Targaryen Hanesi</h3>
+                        <p class="card-excerpt">Ejderha Lordları'nın yükselişi ve düşüşü...</p>
+                        <a href="#" class="card-link">Devamını Oku →</a>
+                    </div>
+                </article>
 
-  <label>Prompt:</label>
-  <textarea id="prompt" rows="4" placeholder="Ne sormak istiyorsun?"></textarea>
+                <article class="featured-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600');">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Lokasyon</span>
+                        <h3 class="card-title">Kış Kapısı (Winterfell)</h3>
+                        <p class="card-excerpt">Stark Hanesi'nin ata yurdu ve Kuzey'in kalbi...</p>
+                        <a href="#" class="card-link">Devamını Oku →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-  <button id="runBtn">Çalıştır</button>
+        <!-- Characters Section -->
+        <section class="section characters-section" id="characters">
+            <h2 class="section-title">
+                <span class="title-icon">👑</span>
+                Karakterler
+            </h2>
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="./images/Daenerys Targaryen.webp" alt="Daenerys Targaryen">
+                    </div>
+                    <h4 class="character-name">Daenerys Targaryen</h4>
+                    <p class="character-title">Ejderhaların Annesi</p>
+                    <span class="house-badge targaryen">Targaryen</span>
+                </div>
 
-  <h3>Çıktı</h3>
-  <pre id="output"></pre>
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="./images/Jon Snow.png" alt="Jon Snow">
+                    </div>
+                    <h4 class="character-name">Jon Snow</h4>
+                    <p class="character-title">Gece Bekçisi Lordu</p>
+                    <span class="house-badge stark">Stark</span>
+                </div>
 
-  <script src="./app.js"></script>
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="./images/Tyrion Lannister.png" alt="Tyrion Lannister">
+                    </div>
+                    <h4 class="character-name">Tyrion Lannister</h4>
+                    <p class="character-title">Kralın Eli</p>
+                    <span class="house-badge lannister">Lannister</span>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="./images/Arya Stark.jpg" alt="Arya Stark">
+                    </div>
+                    <h4 class="character-name">Arya Stark</h4>
+                    <p class="character-title">Hiç Kimse</p>
+                    <span class="house-badge stark">Stark</span>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="./images/Cersei Lannister.webp" alt="Cersei Lannister">
+                    </div>
+                    <h4 class="character-name">Cersei Lannister</h4>
+                    <p class="character-title">Yedi Krallığın Kraliçesi</p>
+                    <span class="house-badge lannister">Lannister</span>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="./images/Gece Kralı.jpg" alt="Gece Kralı">
+                    </div>
+                    <h4 class="character-name">Gece Kralı</h4>
+                    <p class="character-title">Beyaz Yürüyenlerin Lideri</p>
+                    <span class="house-badge whitewalker">Beyaz Yürüyen</span>
+                </div>
+            </div>
+            <a href="#" class="btn btn-secondary view-all">Tüm Karakterleri Gör →</a>
+        </section>
+
+        <!-- Houses Section -->
+        <section class="section houses-section" id="houses">
+            <h2 class="section-title">
+                <span class="title-icon">🏰</span>
+                Büyük Haneler
+            </h2>
+            <div class="houses-grid">
+                <div class="house-card stark-house">
+                    <div class="house-sigil">🐺</div>
+                    <h3 class="house-name">Stark Hanesi</h3>
+                    <p class="house-motto">"Kış Geliyor"</p>
+                    <p class="house-seat">Kış Kapısı (Winterfell)</p>
+                </div>
+
+                <div class="house-card lannister-house">
+                    <div class="house-sigil">🦁</div>
+                    <h3 class="house-name">Lannister Hanesi</h3>
+                    <p class="house-motto">"Bir Lannister Borcunu Öder"</p>
+                    <p class="house-seat">Casterly Kayası</p>
+                </div>
+
+                <div class="house-card targaryen-house">
+                    <div class="house-sigil">🐉</div>
+                    <h3 class="house-name">Targaryen Hanesi</h3>
+                    <p class="house-motto">"Ateş ve Kan"</p>
+                    <p class="house-seat">Ejder Kayası</p>
+                </div>
+
+                <div class="house-card baratheon-house">
+                    <div class="house-sigil">🦌</div>
+                    <h3 class="house-name">Baratheon Hanesi</h3>
+                    <p class="house-motto">"Bizimdir Öfke"</p>
+                    <p class="house-seat">Fırtına Burnu</p>
+                </div>
+
+                <div class="house-card greyjoy-house">
+                    <div class="house-sigil">🦑</div>
+                    <h3 class="house-name">Greyjoy Hanesi</h3>
+                    <p class="house-motto">"Ekmeyiz, Biçeriz"</p>
+                    <p class="house-seat">Pyke</p>
+                </div>
+
+                <div class="house-card tyrell-house">
+                    <div class="house-sigil">🌹</div>
+                    <h3 class="house-name">Tyrell Hanesi</h3>
+                    <p class="house-motto">"Güçlenerek Büyüyoruz"</p>
+                    <p class="house-seat">Highgarden</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Articles -->
+        <section class="section recent-section">
+            <h2 class="section-title">
+                <span class="title-icon">📰</span>
+                Son Eklenen Makaleler
+            </h2>
+            <div class="articles-list">
+                <article class="article-item">
+                    <div class="article-date">
+                        <span class="day">24</span>
+                        <span class="month">Oca</span>
+                    </div>
+                    <div class="article-info">
+                        <span class="article-category">Tarih</span>
+                        <h3 class="article-title">Robert'ın İsyanı: Taht Savaşlarının Başlangıcı</h3>
+                        <p class="article-excerpt">Mad King Aerys'e karşı yapılan isyanın tüm detayları...</p>
+                    </div>
+                    <a href="#" class="article-link">Oku</a>
+                </article>
+
+                <article class="article-item">
+                    <div class="article-date">
+                        <span class="day">22</span>
+                        <span class="month">Oca</span>
+                    </div>
+                    <div class="article-info">
+                        <span class="article-category">Lokasyon</span>
+                        <h3 class="article-title">Duvar: Yedi Krallığın Kalkanı</h3>
+                        <p class="article-excerpt">8.000 yıllık buz duvarının sırları ve Gece Bekçileri...</p>
+                    </div>
+                    <a href="#" class="article-link">Oku</a>
+                </article>
+
+                <article class="article-item">
+                    <div class="article-date">
+                        <span class="day">20</span>
+                        <span class="month">Oca</span>
+                    </div>
+                    <div class="article-info">
+                        <span class="article-category">Efsane</span>
+                        <h3 class="article-title">Azor Ahai Efsanesi ve Işık Taşıyıcı</h3>
+                        <p class="article-excerpt">Karanlığı yenecek olan kahramanın kehaneti...</p>
+                    </div>
+                    <a href="#" class="article-link">Oku</a>
+                </article>
+
+                <article class="article-item">
+                    <div class="article-date">
+                        <span class="day">18</span>
+                        <span class="month">Oca</span>
+                    </div>
+                    <div class="article-info">
+                        <span class="article-category">Karakter</span>
+                        <h3 class="article-title">Bran Stark: Üç Gözlü Kuzgun</h3>
+                        <p class="article-excerpt">Bran'ın yetenekleri ve Westeros'un geleceğindeki rolü...</p>
+                    </div>
+                    <a href="#" class="article-link">Oku</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Locations Map Preview -->
+        <section class="section locations-section" id="locations">
+            <h2 class="section-title">
+                <span class="title-icon">🗺️</span>
+                Westeros Haritası
+            </h2>
+            <div class="map-container">
+                <a href="https://quartermaester.info/" class="map-link" id="mapLink" target="_blank">
+                    <div class="map-image-wrapper">
+                        <img src="./images/westeros-map.webp" alt="Known World - Westeros ve Essos Haritası" class="map-image">
+                        <div class="map-overlay">
+                            <span class="map-overlay-text">🔍 Haritayı İncele</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="location-list">
+                    <div class="location-item">
+                        <span class="location-icon">🏰</span>
+                        <div>
+                            <h4>King's Landing</h4>
+                            <p>Yedi Krallığın Başkenti</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <span class="location-icon">❄️</span>
+                        <div>
+                            <h4>Winterfell</h4>
+                            <p>Kuzey'in Kalbi</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <span class="location-icon">🧊</span>
+                        <div>
+                            <h4>The Wall</h4>
+                            <p>Diyarın Kalkanı</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <span class="location-icon">🐉</span>
+                        <div>
+                            <h4>Dragonstone</h4>
+                            <p>Ejderha Kalesi</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <span class="location-icon">☀️</span>
+                        <div>
+                            <h4>Dorne</h4>
+                            <p>Güneyin Prensliği</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Stats -->
+        <section class="section stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">2,847</span>
+                    <span class="stat-label">Makale</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">156</span>
+                    <span class="stat-label">Karakter</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">42</span>
+                    <span class="stat-label">Hane</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1,234</span>
+                    <span class="stat-label">Aktif Kullanıcı</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">⚔️ ThronesWiki</h3>
+                <p>Game of Thrones evreninin en kapsamlı Türkçe kaynağı. Karakterler, haneler, lokasyonlar ve daha fazlası.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Hızlı Bağlantılar</h4>
+                <ul>
+                    <li><a href="#">Ana Sayfa</a></li>
+                    <li><a href="#">Karakterler</a></li>
+                    <li><a href="#">Haneler</a></li>
+                    <li><a href="#">Lokasyonlar</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Topluluk</h4>
+                <ul>
+                    <li><a href="chat.html">Sohbet Odası</a></li>
+                    <li><a href="#">Teoriler</a></li>
+                    <li><a href="#">Tartışmalar</a></li>
+                    <li><a href="#">Katkıda Bulun</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Hesap</h4>
+                <ul>
+                    <li><a href="login.html">Giriş Yap</a></li>
+                    <li><a href="register.html">Kayıt Ol</a></li>
+                    <li><a href="#">Profil</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 ThronesWiki. Tüm hakları saklıdır. | Proje Ekibi: İrem, Selin, Taha Kutay, Gamze, Şerife</p>
+        </div>
+    </footer>
+
+    <script src="./app.js"></script>
 </body>
 </html>
