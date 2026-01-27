@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ThronesWiki</title>
+
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/auth.css}">
+    <link rel="stylesheet" th:href="@{/chatbot.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="login.html" class="logo">
+            <span class="logo-icon">⚔️</span>
+            <span class="logo-text">ThronesWiki</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="login.html">Home</a></li>
+            <li><a href="login.html#characters">Characters</a></li>
+            <li><a href="login.html#houses">Houses</a></li>
+            <li><a href="chat.html">Chat</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="register.html" class="btn btn-outline active">Login</a>
+            <a th:href="@{/register}" class="btn btn-primary">Register</a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </div>
+</nav>
+
+<!-- Auth Container -->
+<main class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">🛡️</div>
+            <h1 class="auth-title">Welcome</h1>
+            <p class="auth-subtitle">Sign in to ThronesWiki and explore Westeros</p>
+        </div>
+
+        <form class="auth-form" id="loginForm" th:action="@{/login}" method="post">
+
+            <!-- Error Message -->
+            <div class="alert alert-error" th:if="${error}">
+                <span class="alert-icon">⚠️</span>
+                <span th:text="${error}">Invalid username or password</span>
+            </div>
+
+            <!-- Success Message -->
+            <div class="alert alert-success" th:if="${message}">
+                <span class="alert-icon">✅</span>
+                <span th:text="${message}">Operation completed successfully</span>
+            </div>
+
+            <div class="form-group">
+                <label for="username" class="form-label">
+                    <span class="label-icon">👤</span>
+                    Username
+                </label>
+                <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-input"
+                        placeholder="Enter your username"
+                        required
+                        autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">
+                    <span class="label-icon">🔒</span>
+                    Password
+                </label>
+                <div class="password-input-wrapper">
+                    <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-input"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                    >
+                    <button type="button" class="password-toggle" id="togglePassword">
+                        👁️
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="remember" class="checkbox-input">
+                    <span class="checkbox-custom"></span>
+                    Remember me
+                </label>
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                <span class="btn-icon">⚔️</span>
+                Login
+            </button>
+        </form>
+
+        <div class="auth-divider">
+            <span>or</span>
+        </div>
+
+        <div class="social-login">
+            <button class="btn btn-social btn-google">
+                <span>🔴</span> Sign in with Google
+            </button>
+            <button class="btn btn-social btn-discord">
+                <span>🟣</span> Sign in with Discord
+            </button>
+        </div>
+
+        <div class="auth-footer">
+            <p>Don’t have an account? <a th:href="@{/register}" class="auth-link">Register</a></p>
+        </div>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="auth-decoration">
+        <div class="decoration-card">
+            <div class="decoration-icon">🐉</div>
+            <h3>The World of Dragons</h3>
+            <p>Discover the stories of Targaryen dragons</p>
+        </div>
+        <div class="decoration-card">
+            <div class="decoration-icon">🏰</div>
+            <h3>Ancient Castles</h3>
+            <p>Explore the most famous castles of Westeros</p>
+        </div>
+        <div class="decoration-card">
+            <div class="decoration-icon">💬</div>
+            <h3>Community</h3>
+            <p>Discuss theories with other fans</p>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="auth-footer-bar">
+    <p>© 2026 ThronesWiki. All rights reserved.</p>
+</footer>
+
+<script src="./auth.js"></script>
+<script src="./chatbot.js"></script>
+</body>
+</html>

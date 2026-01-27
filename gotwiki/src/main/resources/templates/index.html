@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ThronesWiki - Game of Thrones Encyclopedia</title>
+
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/chatbot.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a th:href="@{/}" class="logo">
+            <span class="logo-icon">⚔️</span>
+            <span class="logo-text">ThronesWiki</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a th:href="@{/}" class="active">Home</a></li>
+            <li><a th:href="@{/characters}">Characters</a></li>
+            <li><a th:href="@{/houses}">Houses</a></li>
+            <li><a th:href="@{/regions}">Locations</a></li>
+            <li><a th:href="@{/chat}">Chat</a></li>
+        </ul>
+
+        <div class="nav-auth">
+            <a th:href="@{/login}" class="btn btn-outline">Login</a>
+            <a th:href="@{/register}" class="btn btn-primary">Register</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">All the Secrets of Westeros</h1>
+        <p class="hero-subtitle">
+            Characters, houses, and historical events from the Game of Thrones universe
+        </p>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search for a character or house..." class="search-input">
+            <button class="search-btn">🔍 Search</button>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main class="main-content">
+
+    <!-- CHARACTERS -->
+    <section class="section characters-section">
+        <h2 class="section-title">
+            <span class="title-icon">👑</span> Characters
+        </h2>
+
+        <div class="characters-grid">
+            <p>Click to view characters</p>
+        </div>
+
+        <a th:href="@{/characters}" class="btn btn-secondary view-all">
+            View All Characters →
+        </a>
+    </section>
+
+    <!-- HOUSES -->
+    <section class="section houses-section">
+        <h2 class="section-title">
+            <span class="title-icon">🏰</span> Great Houses
+        </h2>
+
+        <div class="houses-grid">
+            <div class="house-card" th:each="house : ${houses}">
+                <div class="house-sigil">🛡️</div>
+                <h3 class="house-name" th:text="${house.name}">House Stark</h3>
+                <p class="house-motto" th:text="${house.great} ? 'Great House' : 'Minor House'"></p>
+                <p class="house-seat">ID: <span th:text="${house.id}">0</span></p>
+            </div>
+        </div>
+
+        <a th:href="@{/houses}" class="btn btn-secondary view-all">
+            View All Houses →
+        </a>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section class="section locations-section">
+        <h2 class="section-title">
+            <span class="title-icon">🗺️</span> Map of Westeros
+        </h2>
+
+        <a href="https://quartermaester.info/" target="_blank">
+            <img th:src="@{/images/westeros-map.webp}" alt="Map of Westeros">
+        </a>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>⚔️ ThronesWiki</h3>
+            <p>The most comprehensive Game of Thrones encyclopedia</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Account</h4>
+            <ul>
+                <li><a th:href="@{/login}">Login</a></li>
+                <li><a th:href="@{/register}">Register</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 ThronesWiki</p>
+    </div>
+</footer>
+
+<script th:src="@{/app.js}"></script>
+<script th:src="@{/chatbot.js}"></script>
+
+</body>
+</html>

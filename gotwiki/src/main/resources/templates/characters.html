@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Characters | ThronesWiki</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #0f172a;
+            font-family: 'Segoe UI', sans-serif;
+            color: #e5e7eb;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 30px 0;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #020617, #020617);
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 18px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #38bdf8;
+            box-shadow: 0 0 18px rgba(56,189,248,0.15);
+        }
+
+        .name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #f8fafc;
+        }
+
+        .meta {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: #cbd5f5;
+            line-height: 1.4;
+            max-height: 80px;
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin: 20px 0 40px;
+            color: #38bdf8;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Game of Thrones Characters</h1>
+
+<div class="grid">
+    <a th:each="p : ${persons}"
+       th:href="@{/persons/{id}(id=${p.id})}">
+        <div class="card">
+            <div class="name" th:text="${p.fullName}">
+                Jon Snow
+            </div>
+
+            <div class="meta">
+                <span th:text="${p.sex}">Male</span> ·
+                <span th:text="${p.status}">Alive</span>
+            </div>
+
+            <div class="meta" th:if="${p.bornYear != null}">
+                Born:
+                <span th:text="${p.bornYear}">283</span>
+
+                <span th:if="${p.diedYear != null}">
+                    – Died:
+                    <span th:text="${p.diedYear}">305</span>
+                </span>
+            </div>
+
+            <div class="desc" th:text="${p.description}">
+                Character description...
+            </div>
+        </div>
+    </a>
+</div>
+
+<a href="/" class="back">← Back to Home</a>
+
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sohbet - ThronesWiki</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/chat.css">
+    <link rel="stylesheet" href="../static/chatbot.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="chat-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">ThronesWiki</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="index.html#characters">Karakterler</a></li>
+                <li><a href="index.html#houses">Haneler</a></li>
+                <li><a href="chat.html" class="active">Sohbet</a></li>
+            </ul>
+            <div class="nav-auth">
+                <!-- Thymeleaf: Giriş yapmış kullanıcı -->
+                <div class="user-menu" th:if="${currentUser}">
+                    <span class="user-avatar">👤</span>
+                    <span class="user-name" th:text="${currentUser.username}">Kullanıcı</span>
+                    <a href="/logout" class="btn btn-outline btn-sm">Çıkış</a>
+                </div>
+                <!-- Giriş yapmamış kullanıcı -->
+                <div th:unless="${currentUser}">
+                    <a href="login.html" class="btn btn-outline">Giriş Yap</a>
+                    <a href="register.html" class="btn btn-primary">Kayıt Ol</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Chat Container -->
+    <main class="chat-container">
+        <!-- Sidebar - Chat Rooms & Users -->
+        <aside class="chat-sidebar">
+            <div class="sidebar-header">
+                <h2>💬 Sohbet Odaları</h2>
+            </div>
+            
+            <!-- Chat Rooms -->
+            <div class="chat-rooms">
+                <h3 class="sidebar-section-title">Odalar</h3>
+                <ul class="room-list">
+                    <li class="room-item active" data-room="genel">
+                        <span class="room-icon">🏰</span>
+                        <div class="room-info">
+                            <span class="room-name">Genel Sohbet</span>
+                            <span class="room-desc">Herkesin katılabileceği ana oda</span>
+                        </div>
+                        <span class="room-badge">24</span>
+                    </li>
+                    <li class="room-item" data-room="teoriler">
+                        <span class="room-icon">🔮</span>
+                        <div class="room-info">
+                            <span class="room-name">Teoriler</span>
+                            <span class="room-desc">Fan teorileri tartışma odası</span>
+                        </div>
+                        <span class="room-badge">12</span>
+                    </li>
+                    <li class="room-item" data-room="stark">
+                        <span class="room-icon">🐺</span>
+                        <div class="room-info">
+                            <span class="room-name">Stark Hayranları</span>
+                            <span class="room-desc">Kış geliyor!</span>
+                        </div>
+                        <span class="room-badge">8</span>
+                    </li>
+                    <li class="room-item" data-room="targaryen">
+                        <span class="room-icon">🐉</span>
+                        <div class="room-info">
+                            <span class="room-name">Targaryen Hayranları</span>
+                            <span class="room-desc">Ateş ve Kan</span>
+                        </div>
+                        <span class="room-badge">15</span>
+                    </li>
+                    <li class="room-item" data-room="lannister">
+                        <span class="room-icon">🦁</span>
+                        <div class="room-info">
+                            <span class="room-name">Lannister Hayranları</span>
+                            <span class="room-desc">Bir Lannister borcunu öder</span>
+                        </div>
+                        <span class="room-badge">6</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Online Users -->
+            <div class="online-users">
+                <h3 class="sidebar-section-title">
+                    Çevrimiçi Kullanıcılar
+                    <span class="online-count">18</span>
+                </h3>
+                <ul class="user-list" id="onlineUsers">
+                    <li class="user-item">
+                        <span class="user-status online"></span>
+                        <span class="user-avatar-small">🐺</span>
+                        <span class="user-name">WinterIsComing</span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-status online"></span>
+                        <span class="user-avatar-small">🐉</span>
+                        <span class="user-name">DragonQueen</span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-status online"></span>
+                        <span class="user-avatar-small">🦁</span>
+                        <span class="user-name">GoldenLion</span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-status away"></span>
+                        <span class="user-avatar-small">🗡️</span>
+                        <span class="user-name">NeedleArya</span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-status online"></span>
+                        <span class="user-avatar-small">📚</span>
+                        <span class="user-name">TyrionBooks</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <section class="chat-main">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="chat-room-info">
+                    <span class="room-icon-large">🏰</span>
+                    <div>
+                        <h2 class="current-room-name">Genel Sohbet</h2>
+                        <p class="current-room-desc">Herkesin katılabileceği ana oda • 24 kullanıcı çevrimiçi</p>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="chat-action-btn" title="Oda Ayarları">⚙️</button>
+                    <button class="chat-action-btn" title="Kullanıcı Listesi" id="toggleUserList">👥</button>
+                    <button class="chat-action-btn" title="Bildirimler">🔔</button>
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- System Message -->
+                <div class="message system-message">
+                    <p>🏰 <strong>Genel Sohbet</strong> odasına hoş geldiniz! Lütfen topluluk kurallarına uyun.</p>
+                </div>
+
+                <!-- Date Divider -->
+                <div class="date-divider">
+                    <span>Bugün</span>
+                </div>
+
+                <!-- Sample Messages -->
+                <div class="message">
+                    <div class="message-avatar">
+                        <span>🐺</span>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author stark-user">WinterIsComing</span>
+                            <span class="message-time">14:32</span>
+                        </div>
+                        <p class="message-text">Merhaba arkadaşlar! Jon Snow'un gerçek kimliği hakkında ne düşünüyorsunuz?</p>
+                    </div>
+                </div>
+
+                <div class="message">
+                    <div class="message-avatar">
+                        <span>🐉</span>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author targaryen-user">DragonQueen</span>
+                            <span class="message-time">14:35</span>
+                        </div>
+                        <p class="message-text">Aegon Targaryen! Lyanna ve Rhaegar'ın oğlu. Demir Taht'ın gerçek varisi 👑</p>
+                    </div>
+                </div>
+
+                <div class="message">
+                    <div class="message-avatar">
+                        <span>🦁</span>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author lannister-user">GoldenLion</span>
+                            <span class="message-time">14:38</span>
+                        </div>
+                        <p class="message-text">Taht oyunlarında önemli olan soy değil, güçtür. Cersei'nin dediği gibi: "Taht oyunlarında ya kazanırsın ya ölürsün." ⚔️</p>
+                    </div>
+                </div>
+
+                <div class="message">
+                    <div class="message-avatar">
+                        <span>🗡️</span>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">NeedleArya</span>
+                            <span class="message-time">14:42</span>
+                        </div>
+                        <p class="message-text">Arya'nın Gece Kralı'nı öldürmesi en epic sahneydi! 🗡️💨</p>
+                        <div class="message-reactions">
+                            <span class="reaction">❤️ 5</span>
+                            <span class="reaction">🔥 3</span>
+                            <span class="reaction">⚔️ 2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message">
+                    <div class="message-avatar">
+                        <span>📚</span>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">TyrionBooks</span>
+                            <span class="message-time">14:45</span>
+                        </div>
+                        <p class="message-text">Kitaplardaki hikaye çok farklı. George R.R. Martin'in yeni kitabını bekliyorum hala... 📖</p>
+                    </div>
+                </div>
+
+                <div class="message typing-indicator" id="typingIndicator" style="display: none;">
+                    <div class="message-avatar">
+                        <span>👤</span>
+                    </div>
+                    <div class="message-content">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <button class="input-action-btn" title="Emoji">😊</button>
+                    <button class="input-action-btn" title="Dosya Ekle">📎</button>
+                    <button class="input-action-btn" title="GIF">🎬</button>
+                    <input 
+                        type="text" 
+                        class="chat-input" 
+                        id="messageInput" 
+                        placeholder="Mesajınızı yazın..."
+                        autocomplete="off"
+                    >
+                    <button class="send-btn" id="sendBtn" title="Gönder">
+                        <span>📤</span>
+                    </button>
+                </div>
+                <p class="input-hint">Enter tuşuna basarak gönderin • Shift+Enter ile yeni satır</p>
+            </div>
+        </section>
+
+        <!-- User Profile Panel (Hidden by default) -->
+        <aside class="user-profile-panel" id="userProfilePanel">
+            <div class="profile-header">
+                <button class="close-panel-btn" id="closeProfile">✕</button>
+                <div class="profile-avatar-large">🐺</div>
+                <h3 class="profile-name">WinterIsComing</h3>
+                <p class="profile-title">Kuzey'in Koruyucusu</p>
+            </div>
+            <div class="profile-info">
+                <div class="info-item">
+                    <span class="info-label">Favori Hane</span>
+                    <span class="info-value">🐺 Stark</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Katılım Tarihi</span>
+                    <span class="info-value">Ocak 2026</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Mesaj Sayısı</span>
+                    <span class="info-value">1,247</span>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn btn-outline btn-sm">Mesaj Gönder</button>
+                <button class="btn btn-outline btn-sm">Profili Görüntüle</button>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Login Required Modal (for non-authenticated users) -->
+    <div class="modal" id="loginModal" th:unless="${currentUser}">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-icon">🔐</span>
+                <h2>Giriş Yapmanız Gerekiyor</h2>
+            </div>
+            <p class="modal-text">Sohbet odasına katılmak için lütfen giriş yapın veya kayıt olun.</p>
+            <div class="modal-actions">
+                <a href="login.html" class="btn btn-primary">Giriş Yap</a>
+                <a href="register.html" class="btn btn-outline">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/chat.js"></script>
+    <script src="../static/chatbot.js"></script>
+</body>
+</html>

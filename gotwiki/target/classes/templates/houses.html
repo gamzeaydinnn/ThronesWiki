@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Houses | ThronesWiki</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<h1>🏰 Houses of Westeros</h1>
+
+<div class="houses-grid">
+    <div class="house-card" th:each="house : ${houses}">
+        <h2 th:text="${house.name}">House Name</h2>
+
+        <p>
+            <strong>Great House:</strong>
+            <span th:text="${house.great ? 'Yes' : 'No'}"></span>
+        </p>
+
+        <a th:href="@{/houses/{id}(id=${house.id})}">
+            View Details →
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
